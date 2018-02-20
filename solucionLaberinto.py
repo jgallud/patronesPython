@@ -53,13 +53,27 @@ class Decorator(ElementoMapa):
 		self.componente=None
 
 class Bomba(Decorator):
-	def __init__(self):
+	def __init__(self,estrategia):
 		self.activa=False
+		self.estrategia=estrategia
+
 	def entrar(self):
-		if self.activa:
-			print "Has explotado"
-		else:
-			self.componente.entrar()
+		self.estrategia.entrar()
+
+class Estrategia:
+	def entrar(self):
+		print "metodo a sobreescribir"
+
+class Broma(Estrategia):
+	def entrar(self):
+		print "bomba broma"
+
+class H(Estrategia):
+	def entrar(self):
+		print "bomba H"
+class Mina(Estrategia):
+	def entrar(self):
+		print "bomba mina"
 
 # juego=JuegoLaberinto()
 

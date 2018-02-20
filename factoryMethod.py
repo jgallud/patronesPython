@@ -19,8 +19,8 @@ class CreaLab(object):
 	def fabricarHabitacion(self,id):
 		return Habitacion(id)
 	
-	def fabricarBomba(self):
-		return Bomba()
+	def fabricarBomba(self,estrategia):
+		return Bomba(estrategia)
 
 	def crearLaberinto2Hab(self):
 		self.lab=self.fabricarLaberinto()
@@ -40,14 +40,14 @@ class CreaLabBomba(CreaLab):
 		hab1=self.fabricarHabitacion(1)
 		hab2=self.fabricarHabitacion(2)
 		pt=self.fabricarPuerta(hab1,hab2)
-		bomba1=self.fabricarBomba()
+		bomba1=self.fabricarBomba(Broma())
 		bomba1.componente=self.fabricarPared()
-		b2=self.fabricarBomba()
-		b2.componente=self.fabricarPared()
+		bomba2=self.fabricarBomba(Mina())
+		bomba2.componente=self.fabricarPared()
 		hab1.norte=pt
 		hab1.este=bomba1
 		hab2.sur=pt
-		hab2.este=b2
+		hab2.este=bomba2
 		self.lab.agregarHabitacion(hab1)
 		self.lab.agregarHabitacion(hab2)
 		return self.lab

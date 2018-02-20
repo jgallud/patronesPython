@@ -58,21 +58,28 @@ class Bomba(Decorator):
 		self.estrategia=estrategia
 
 	def entrar(self):
-		self.estrategia.entrar()
+		self.estrategia.entrar(self)
 
 class Estrategia:
-	def entrar(self):
-		print "metodo a sobreescribir"
+	def entrar(self,bomba):
+		if bomba.activa:
+			self.imprimir()
+		else:
+			bomba.componente.entrar()
+
+	def imprimir(self):
+		print "sobreescribir mensaje"
 
 class Broma(Estrategia):
-	def entrar(self):
+	def imprimir(self):
 		print "bomba broma"
 
 class H(Estrategia):
-	def entrar(self):
+	def imprimir(self):
 		print "bomba H"
+
 class Mina(Estrategia):
-	def entrar(self):
+	def imprimir(self):
 		print "bomba mina"
 
 # juego=JuegoLaberinto()

@@ -77,6 +77,7 @@ hab.norte.entrar()
 
 #Aqui hay una bomba pero esta desactivada
 hab.este.entrar()
+
 #activo la bomba y exploto al entrar
 hab.este.activa=True
 hab.este.entrar()

@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
 class JuegoLaberinto:
-	def __init__(self):
-		self.laberinto=None
-	def obtenerHabitacion(self,id):
-		return self.laberinto.obtenerHabitacion(id)
+ def __init__(self):
+   self.laberinto=None
+ def obtenerHabitacion(self,id):
+   return self.laberinto.obtenerHabitacion(id)
 
 class Laberinto:
 	def __init__(self):
@@ -22,10 +22,20 @@ class Laberinto:
 class ElementoMapa:
 	def entrar(self):
 		print "metodo a sobreescribir"
+	def esPuerta(self):
+		return False
+	def esPared(self):
+		return False
+	def esHabtiacion(self):
+		return False
+	def esBomba(self):
+		return False
 
 class Pared(ElementoMapa):
 	def entrar(self):
 		print "Te has chocado con una pared"
+	def esPared(self):
+		return True
 
 class Puerta(ElementoMapa):
 	def __init__(self, h1,h2):
@@ -37,6 +47,8 @@ class Puerta(ElementoMapa):
 			print "Puerta abierta"
 		else:
 			print "Puerta cerrada"
+	def esPuerta(self):
+		return True
 
 class Habitacion(ElementoMapa):
 	def __init__(self,id):
@@ -47,6 +59,8 @@ class Habitacion(ElementoMapa):
 		self.oeste=Pared()
 	def entrar(self):
 		print "Estas en la habitacion-"+repr(self.id)
+	def esHabitacion(self):
+		return True
 
 class Decorator(ElementoMapa):
 	def __init__(self):
@@ -59,6 +73,9 @@ class Bomba(Decorator):
 
 	def entrar(self):
 		self.estrategia.entrar(self)
+
+	def esBomba(self):
+		return True
 
 class Estrategia:
 	def entrar(self,bomba):
@@ -81,6 +98,22 @@ class H(Estrategia):
 class Mina(Estrategia):
 	def imprimir(self):
 		print "bomba mina"
+
+class Orientacion:
+	def poner(self,elemento,habitacion):
+		print "sobreescribir"
+class Norte(Orientacion):
+	def poner(self,elemento,habitacion):
+		habitacion.norte=elemento
+class Sur(Orientacion):
+	def poner(self,elemento,habitacion):
+		habitacion.sur=elemento
+class Este(Orientacion):
+	def poner(self,elemento,habitacion):
+		habitacion.este=elemento
+class Oeste(Orientacion):
+	def poner(self,elemento,habitacion):
+		habitacion.oeste=elemento
 
 # juego=JuegoLaberinto()
 

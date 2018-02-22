@@ -31,13 +31,47 @@ class ElementoMapa:
 	def esBomba(self):
 		return False
 
-class Pared(ElementoMapa):
+class Contenedor(ElementoMapa):
+	def __init__(self):
+		self.hijos=list()
+
+	def agregarHijo(self,unEM):
+		self.hijos.append(unEM)
+
+	def eliminarHijo(self,unEM):
+		self.hijos.remove(unEM)
+
+class Habitacion(Contenedor):
+	def __init__(self,id):
+		self.id=id
+		self.norte=Pared()
+		self.este=Pared()
+		self.sur=Pared()
+		self.oeste=Pared()
+		self.hijos=list()
+
+	def entrar(self):
+		print "Estas en la habitacion-"+repr(self.id)
+	def esHabitacion(self):
+		return True
+
+class Hoja(ElementoMapa):
+	def entrar(self):
+		print "es una hoja"
+
+class Armario(Contenedor):
+	def esArmario(self):
+		return False
+	def entrar(self):
+		print "estas en un armario"
+
+class Pared(Hoja):
 	def entrar(self):
 		print "Te has chocado con una pared"
 	def esPared(self):
 		return True
 
-class Puerta(ElementoMapa):
+class Puerta(Hoja):
 	def __init__(self, h1,h2):
 		self.h1=h1
 		self.h2=h2
@@ -50,19 +84,7 @@ class Puerta(ElementoMapa):
 	def esPuerta(self):
 		return True
 
-class Habitacion(ElementoMapa):
-	def __init__(self,id):
-		self.id=id
-		self.norte=Pared()
-		self.este=Pared()
-		self.sur=Pared()
-		self.oeste=Pared()
-	def entrar(self):
-		print "Estas en la habitacion-"+repr(self.id)
-	def esHabitacion(self):
-		return True
-
-class Decorator(ElementoMapa):
+class Decorator(Hoja):
 	def __init__(self):
 		self.componente=None
 

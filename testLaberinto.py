@@ -52,19 +52,65 @@ class TestLaberintoBombas(unittest.TestCase):
         self.assertTrue(hab.norte.esPared())
         self.assertTrue(hab.oeste.esPared())
 
-# if __name__ == '__main__':
-#     # Run only the tests in the specified classes
-#
-#     test_classes_to_run = [TestLaberintoNormal,TestLaberintoBombas]
-#
-#     loader = unittest.TestLoader()
-#
-#     suites_list = []
-#     for test_class in test_classes_to_run:
-#         suite = loader.loadTestsFromTestCase(test_class)
-#         suites_list.append(suite)
-#
-#     big_suite = unittest.TestSuite(suites_list)
-#
-#     runner = unittest.TextTestRunner()
-#     results = runner.run(big_suite)
+class TestLaberintoArmarios(unittest.TestCase):
+    """Test laberinto con bombas"""
+    def setUp(self):
+        self.juego=JuegoLaberinto()
+        fm=CreaLab()
+        self.juego.laberinto=fm.crearLaberintoArmarios()
+
+    def testJuego(self):
+        self.assertIsNot(self.juego.laberinto,None,"laberinto es nil")
+
+    def testNumHabitaciones(self):
+        numHab=len(self.juego.laberinto.habitaciones)
+        self.assertEqual(numHab,2,"el laberinto no tiene 2 habitaciones")
+
+    def testHabitaciones(self):
+        hab=self.juego.obtenerHabitacion(1)
+        self.assertTrue(hab.norte.esPuerta())
+        self.assertTrue(hab.este.esPared())
+        self.assertTrue(hab.sur.esPared())
+        self.assertTrue(hab.oeste.esPared())
+
+        hab = self.juego.obtenerHabitacion(2)
+        self.assertTrue(hab.sur.esPuerta())
+        self.assertTrue(hab.este.esPared())
+        self.assertTrue(hab.norte.esPared())
+        self.assertTrue(hab.oeste.esPared())
+
+    def testArmarios(self):
+        hab1 = self.juego.obtenerHabitacion(1)
+        arm1=hab1.hijos[0]
+        self.assertTrue(arm1.esArmario())
+
+        hab2 = self.juego.obtenerHabitacion(2)
+        arm2=hab2.hijos[0]
+        self.assertTrue(arm2.esArmario())
+
+    def testBombas(self):
+        hab = self.juego.obtenerHabitacion(1)
+        arm=hab.hijos[0]
+        bm=arm.hijos[0]
+        self.assertTrue(bm.esBomba())
+        hab = self.juego.obtenerHabitacion(2)
+        arm=hab.hijos[0]
+        bm=arm.hijos[0]
+        self.assertTrue(bm.esBomba())
+
+if __name__ == '__main__':
+    # Run only the tests in the specified classes
+
+    test_classes_to_run = [TestLaberintoNormal,TestLaberintoBombas,TestLaberintoArmarios]
+
+    loader = unittest.TestLoader()
+
+    suites_list = []
+    for test_class in test_classes_to_run:
+        suite = loader.loadTestsFromTestCase(test_class)
+        suites_list.append(suite)
+
+    big_suite = unittest.TestSuite(suites_list)
+
+    runner = unittest.TextTestRunner()
+    results = runner.run(big_suite)

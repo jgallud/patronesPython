@@ -30,6 +30,8 @@ class ElementoMapa:
 		return False
 	def esBomba(self):
 		return False
+	def esArmario(self):
+		return False
 
 class Contenedor(ElementoMapa):
 	def __init__(self):
@@ -48,7 +50,7 @@ class Habitacion(Contenedor):
 		self.este=Pared()
 		self.sur=Pared()
 		self.oeste=Pared()
-		self.hijos=list()
+		Contenedor.__init__(self)
 
 	def entrar(self):
 		print "Estas en la habitacion-"+repr(self.id)
@@ -61,7 +63,7 @@ class Hoja(ElementoMapa):
 
 class Armario(Contenedor):
 	def esArmario(self):
-		return False
+		return True
 	def entrar(self):
 		print "estas en un armario"
 

@@ -1,23 +1,16 @@
 #!/usr/bin/python
+import time
 
 class JuegoLaberinto:
  def __init__(self):
-   self.laberinto=None
+   	self.laberinto=None
+	self.bichos=None
+
  def obtenerHabitacion(self,id):
    return self.laberinto.obtenerHabitacion(id)
 
-class Laberinto:
-	def __init__(self):
-		self.habitaciones=list()
-
-	def agregarHabitacion(self,hab):
-		self.habitaciones.append(hab)
-
-	def obtenerHabitacion(self,id):
-		for item in self.habitaciones:
-			if item.id==id:
-				return item
-		print "no encontrado"
+ def agregarBicho(self,unBicho):
+	 self.bichos.append(unBicho)
 
 class ElementoMapa:
 	def entrar(self):
@@ -42,6 +35,14 @@ class Contenedor(ElementoMapa):
 
 	def eliminarHijo(self,unEM):
 		self.hijos.remove(unEM)
+
+class Laberinto(Contenedor):
+
+	def obtenerHabitacion(self,id):
+		for item in self.hijos:
+			if item.esHabitacion and item.id==id:
+				return item
+		print "no encontrado"
 
 class Habitacion(Contenedor):
 	def __init__(self,id):
@@ -138,6 +139,30 @@ class Este(Orientacion):
 class Oeste(Orientacion):
 	def poner(self,elemento,habitacion):
 		habitacion.oeste=elemento
+
+class Bicho:
+	def __init__(self):
+		self.modo=None
+		self.posicion=None
+	def actua(self):
+		self.modo.actua(self)
+
+class Modo:
+	def actua(self,unBicho):
+		self.dormir
+		self.caminar(unBicho)
+	def dormir(self):
+		time.sleep(2)
+	def caminar(self,unBicho):
+		pass
+
+class Agresivo(Modo):
+	def dormir(self):
+		time.sleep(1)
+
+class Perezoso(Modo):
+	def dormir(self):
+		time.sleep(3)
 
 # juego=JuegoLaberinto()
 

@@ -32,8 +32,8 @@ class CreaLab(object):
 		pt=self.fabricarPuerta(hab1,hab2)
 		hab1.norte=pt
 		hab2.sur=pt
-		self.lab.agregarHabitacion(hab1)
-		self.lab.agregarHabitacion(hab2)
+		self.lab.agregarHijo(hab1)
+		self.lab.agregarHijo(hab2)
 		return self.lab
 
 	def crearLaberinto2HabOrientaciones(self):
@@ -58,8 +58,8 @@ class CreaLab(object):
 		oeste.poner(self.fabricarPared(), hab2)
 		norte.poner(self.fabricarPared(), hab2)
 
-		self.lab.agregarHabitacion(hab1)
-		self.lab.agregarHabitacion(hab2)
+		self.lab.agregarHijo(hab1)
+		self.lab.agregarHijo(hab2)
 		return self.lab
 
 	def crearLaberintoArmarios(self):
@@ -94,8 +94,8 @@ class CreaLab(object):
 		hab1.agregarHijo(arm1)
 		hab2.agregarHijo(arm2)
 
-		self.lab.agregarHabitacion(hab1)
-		self.lab.agregarHabitacion(hab2)
+		self.lab.agregarHijo(hab1)
+		self.lab.agregarHijo(hab2)
 		return self.lab
 
 class CreaLabBomba(CreaLab):
@@ -128,8 +128,8 @@ class CreaLabBomba(CreaLab):
 		oeste.poner(self.fabricarPared(), hab2)
 		norte.poner(self.fabricarPared(), hab2)
 
-		self.lab.agregarHabitacion(hab1)
-		self.lab.agregarHabitacion(hab2)
+		self.lab.agregarHijo(hab1)
+		self.lab.agregarHijo(hab2)
 		return self.lab
 
 # Creator crea un laberinto normal

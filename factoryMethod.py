@@ -141,6 +141,8 @@ hab=juego.obtenerHabitacion(1)
 hab.entrar()
 hab.norte.entrar()
 
+juego.laberinto.enumerar()
+
 #CreatorBomba crea un laberinto con 2 bombas
 # fm=CreaLabBomba()
 # juego=fm.fabricarJuego()

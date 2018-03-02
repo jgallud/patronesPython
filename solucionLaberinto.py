@@ -25,24 +25,31 @@ class ElementoMapa:
 		return False
 	def esArmario(self):
 		return False
+	def enumerar(self):
+		pass
+	def __repr__(self):
+		pass
 
 class Contenedor(ElementoMapa):
 	def __init__(self):
 		self.hijos=list()
-
 	def agregarHijo(self,unEM):
 		self.hijos.append(unEM)
-
 	def eliminarHijo(self,unEM):
 		self.hijos.remove(unEM)
+	def enumerar(self):
+		print repr(self)
+		for e in self.hijos:
+			e.enumerar()
 
 class Laberinto(Contenedor):
-
 	def obtenerHabitacion(self,id):
 		for item in self.hijos:
 			if item.esHabitacion and item.id==id:
 				return item
 		print "no encontrado"
+	def __repr__(self):
+		return "Laberinto"
 
 class Habitacion(Contenedor):
 	def __init__(self,id):
@@ -52,7 +59,8 @@ class Habitacion(Contenedor):
 		self.sur=Pared()
 		self.oeste=Pared()
 		Contenedor.__init__(self)
-
+	def __repr__(self):
+		return "Habitacion"
 	def entrar(self):
 		print "Estas en la habitacion-"+repr(self.id)
 	def esHabitacion(self):
@@ -61,18 +69,24 @@ class Habitacion(Contenedor):
 class Hoja(ElementoMapa):
 	def entrar(self):
 		print "es una hoja"
+	def enumerar(self):
+		print repr(self)
 
 class Armario(Contenedor):
 	def esArmario(self):
 		return True
 	def entrar(self):
 		print "estas en un armario"
+	def __repr__(self):
+		return "Armario"
 
 class Pared(Hoja):
 	def entrar(self):
 		print "Te has chocado con una pared"
 	def esPared(self):
 		return True
+	def __repr__(self):
+		return "Pared"
 
 class Puerta(Hoja):
 	def __init__(self, h1,h2):
@@ -86,6 +100,8 @@ class Puerta(Hoja):
 			print "Puerta cerrada"
 	def esPuerta(self):
 		return True
+	def __repr__(self):
+		return "Puerta"
 
 class Decorator(Hoja):
 	def __init__(self):
@@ -95,12 +111,12 @@ class Bomba(Decorator):
 	def __init__(self,estrategia):
 		self.activa=False
 		self.estrategia=estrategia
-
 	def entrar(self):
 		self.estrategia.entrar(self)
-
 	def esBomba(self):
 		return True
+	def __repr__(self):
+		return "Bomba"
 
 class Estrategia:
 	def entrar(self,bomba):
@@ -108,7 +124,6 @@ class Estrategia:
 			self.imprimir()
 		else:
 			bomba.componente.entrar()
-
 	def imprimir(self):
 		print "sobreescribir mensaje"
 

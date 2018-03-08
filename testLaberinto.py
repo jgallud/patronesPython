@@ -5,7 +5,7 @@ class TestLaberintoNormal(unittest.TestCase):
     """Test laberinto normal"""
     def setUp(self):
         self.juego=JuegoLaberinto()
-        fm=CreaLab()
+        fm=AbstractFactoryLaberinto()
         self.juego.laberinto=fm.crearLaberinto2HabOrientaciones()
 
     def testJuego(self):
@@ -14,70 +14,102 @@ class TestLaberintoNormal(unittest.TestCase):
 
     def testNumHabitaciones(self):
         """Test 2 habitaciones laberinto normal"""
-        numHab=len(self.juego.laberinto.habitaciones)
+        numHab=len(self.juego.laberinto.hijos)
         self.assertEqual(numHab,2,"el laberinto no tiene 2 habitaciones")
 
     def testHabitaciones(self):
         """Test puerta y paredes en habitaciones"""
         hab=self.juego.obtenerHabitacion(1)
-        self.assertTrue(hab.norte.esPuerta())
-        self.assertTrue(hab.este.esPared())
-        self.assertTrue(hab.sur.esPared())
-        self.assertTrue(hab.oeste.esPared())
+        forma=hab.forma
+        self.assertTrue(forma.norte.esPuerta())
+        self.assertTrue(forma.este.esPared())
+        self.assertTrue(forma.sur.esPared())
+        self.assertTrue(forma.oeste.esPared())
+
+class TestLaberintoAbstractFactory(unittest.TestCase):
+    """Test laberinto normal"""
+    def setUp(self):
+        self.juego=JuegoLaberinto()
+        af=AbstractFactoryLaberinto()
+        #self.juego.laberinto=fm.crearLaberinto2HabOrientaciones()
+        self.juego.crearLaberinto2Hab(af)
+
+    def testJuego(self):
+        """Test juego laberinto normal"""
+        self.assertIsNot(self.juego.laberinto,None,"laberinto es nil")
+
+    def testNumHabitaciones(self):
+        """Test 2 habitaciones laberinto normal"""
+        numHab=len(self.juego.laberinto.hijos)
+        self.assertEqual(numHab,2,"el laberinto no tiene 2 habitaciones")
+
+    def testHabitaciones(self):
+        """Test puerta y paredes en habitaciones"""
+        hab=self.juego.obtenerHabitacion(1)
+        forma=hab.forma
+        self.assertTrue(forma.norte.esPuerta())
+        self.assertTrue(forma.este.esPared())
+        self.assertTrue(forma.sur.esPared())
+        self.assertTrue(forma.oeste.esPared())
 
 class TestLaberintoBombas(unittest.TestCase):
     """Test laberinto con bombas"""
     def setUp(self):
         self.juego=JuegoLaberinto()
-        fm=CreaLabBomba()
+        fm=AFLaberintoBomba()
         self.juego.laberinto=fm.crearLaberinto2Hab()
 
     def testJuego(self):
         self.assertIsNot(self.juego.laberinto,None,"laberinto es nil")
 
     def testNumHabitaciones(self):
-        numHab=len(self.juego.laberinto.habitaciones)
+        numHab=len(self.juego.laberinto.hijos)
         self.assertEqual(numHab,2,"el laberinto no tiene 2 habitaciones")
 
     def testHabitaciones(self):
         hab=self.juego.obtenerHabitacion(1)
-        self.assertTrue(hab.norte.esPuerta())
-        self.assertTrue(hab.este.esBomba())
-        self.assertTrue(hab.sur.esPared())
-        self.assertTrue(hab.oeste.esPared())
+        forma=hab.forma
+        self.assertTrue(forma.norte.esPuerta())
+        self.assertTrue(forma.este.esBomba())
+        self.assertTrue(forma.sur.esPared())
+        self.assertTrue(forma.oeste.esPared())
 
         hab = self.juego.obtenerHabitacion(2)
-        self.assertTrue(hab.sur.esPuerta())
-        self.assertTrue(hab.este.esBomba())
-        self.assertTrue(hab.norte.esPared())
-        self.assertTrue(hab.oeste.esPared())
+        forma=hab.forma
+        self.assertTrue(forma.sur.esPuerta())
+        self.assertTrue(forma.este.esBomba())
+        self.assertTrue(forma.norte.esPared())
+        self.assertTrue(forma.oeste.esPared())
+
 
 class TestLaberintoArmarios(unittest.TestCase):
     """Test laberinto con bombas"""
     def setUp(self):
         self.juego=JuegoLaberinto()
-        fm=CreaLab()
+        fm=AbstractFactoryLaberinto()
         self.juego.laberinto=fm.crearLaberintoArmarios()
 
     def testJuego(self):
         self.assertIsNot(self.juego.laberinto,None,"laberinto es nil")
 
     def testNumHabitaciones(self):
-        numHab=len(self.juego.laberinto.habitaciones)
+        numHab=len(self.juego.laberinto.hijos)
         self.assertEqual(numHab,2,"el laberinto no tiene 2 habitaciones")
 
     def testHabitaciones(self):
         hab=self.juego.obtenerHabitacion(1)
-        self.assertTrue(hab.norte.esPuerta())
-        self.assertTrue(hab.este.esPared())
-        self.assertTrue(hab.sur.esPared())
-        self.assertTrue(hab.oeste.esPared())
+        forma=hab.forma
+        self.assertTrue(forma.norte.esPuerta())
+        self.assertTrue(forma.este.esPared())
+        self.assertTrue(forma.sur.esPared())
+        self.assertTrue(forma.oeste.esPared())
 
         hab = self.juego.obtenerHabitacion(2)
-        self.assertTrue(hab.sur.esPuerta())
-        self.assertTrue(hab.este.esPared())
-        self.assertTrue(hab.norte.esPared())
-        self.assertTrue(hab.oeste.esPared())
+        forma=hab.forma
+        self.assertTrue(forma.sur.esPuerta())
+        self.assertTrue(forma.este.esPared())
+        self.assertTrue(forma.norte.esPared())
+        self.assertTrue(forma.oeste.esPared())
 
     def testArmarios(self):
         hab1 = self.juego.obtenerHabitacion(1)
@@ -101,7 +133,7 @@ class TestLaberintoArmarios(unittest.TestCase):
 if __name__ == '__main__':
     # Run only the tests in the specified classes
 
-    test_classes_to_run = [TestLaberintoNormal,TestLaberintoBombas,TestLaberintoArmarios]
+    test_classes_to_run = [TestLaberintoNormal,TestLaberintoAbstractFactory,TestLaberintoBombas,TestLaberintoArmarios]
 
     loader = unittest.TestLoader()
 

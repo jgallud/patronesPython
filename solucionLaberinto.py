@@ -5,6 +5,26 @@ class JuegoLaberinto:
  def __init__(self):
    	self.laberinto=None
 	self.bichos=None
+ def crearLaberinto2Hab(self,unAF):
+	 norte = Norte()
+	 sur = Sur()
+	 este = Este()
+	 oeste = Oeste()
+	 lab = unAF.fabricarLaberinto()
+	 hab1 = unAF.fabricarHabitacion(1)
+	 hab2 = unAF.fabricarHabitacion(2)
+	 pt = unAF.fabricarPuerta(hab1, hab2)
+	 hab1.ponerEn(norte,pt)
+	 hab2.ponerEn(sur,pt)
+	 hab1.ponerEn(este, unAF.fabricarPared())
+	 hab1.ponerEn(oeste, unAF.fabricarPared())
+	 hab1.ponerEn(sur, unAF.fabricarPared())
+	 hab2.ponerEn(este, unAF.fabricarPared())
+	 hab2.ponerEn(oeste, unAF.fabricarPared())
+	 hab2.ponerEn(norte, unAF.fabricarPared())
+	 lab.agregarHijo(hab1)
+	 lab.agregarHijo(hab2)
+	 self.laberinto=lab
 
  def obtenerHabitacion(self,id):
    return self.laberinto.obtenerHabitacion(id)
@@ -33,14 +53,31 @@ class ElementoMapa:
 class Contenedor(ElementoMapa):
 	def __init__(self):
 		self.hijos=list()
+		self.forma=None
 	def agregarHijo(self,unEM):
 		self.hijos.append(unEM)
 	def eliminarHijo(self,unEM):
 		self.hijos.remove(unEM)
+	def ponerEn(self,unaOr,unEM):
+		self.forma.ponerEn(unaOr,unEM)
 	def enumerar(self):
 		print repr(self)
 		for e in self.hijos:
 			e.enumerar()
+
+class Forma:
+	def __init__(self):
+		self.orientaciones=list()
+	def ponerEn(self,unaOr,unEM):
+		unaOr.poner(unEM,self)
+
+class Cuadrado(Forma):
+	def __init__(self):
+		self.norte=None
+		self.este=None
+		self.sur=None
+		self.oeste=None
+		Forma.__init__(self)
 
 class Laberinto(Contenedor):
 	def obtenerHabitacion(self,id):
@@ -54,10 +91,6 @@ class Laberinto(Contenedor):
 class Habitacion(Contenedor):
 	def __init__(self,id):
 		self.id=id
-		self.norte=Pared()
-		self.este=Pared()
-		self.sur=Pared()
-		self.oeste=Pared()
 		Contenedor.__init__(self)
 	def __repr__(self):
 		return "Habitacion"
@@ -140,20 +173,21 @@ class Mina(Estrategia):
 		print "bomba mina"
 
 class Orientacion:
-	def poner(self,elemento,habitacion):
-		print "sobreescribir"
+	def poner(self,elemento,forma):
+		pass
+
 class Norte(Orientacion):
-	def poner(self,elemento,habitacion):
-		habitacion.norte=elemento
+	def poner(self,elemento,forma):
+		forma.norte=elemento
 class Sur(Orientacion):
-	def poner(self,elemento,habitacion):
-		habitacion.sur=elemento
+	def poner(self,elemento,forma):
+		forma.sur=elemento
 class Este(Orientacion):
-	def poner(self,elemento,habitacion):
-		habitacion.este=elemento
+	def poner(self,elemento,forma):
+		forma.este=elemento
 class Oeste(Orientacion):
-	def poner(self,elemento,habitacion):
-		habitacion.oeste=elemento
+	def poner(self,elemento,forma):
+		forma.oeste=elemento
 
 class Bicho:
 	def __init__(self):

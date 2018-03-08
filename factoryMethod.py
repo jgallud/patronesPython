@@ -1,7 +1,7 @@
 from solucionLaberinto import *
 
 
-class CreaLab(object):
+class AbstractFactoryLaberinto(object):
 	def __init__(self):
 		self.lab=None
 	def fabricarJuego(self):
@@ -17,13 +17,23 @@ class CreaLab(object):
 		return Puerta(hab1,hab2)		
 	
 	def fabricarHabitacion(self,id):
-		return Habitacion(id)
+		hab=Habitacion(id)
+		hab.forma=self.fabricarForma()
+		return hab
 	
 	def fabricarBomba(self,estrategia):
 		return Bomba(estrategia)
 
 	def fabricarArmario(self):
 		return Armario()
+
+	def fabricarForma(self):
+		cuadrado=Cuadrado()
+		cuadrado.orientaciones.append(Norte())
+		cuadrado.orientaciones.append(Este())
+		cuadrado.orientaciones.append(Sur())
+		cuadrado.orientaciones.append(Oeste())
+		return cuadrado
 
 	def crearLaberinto2Hab(self):
 		self.lab=self.fabricarLaberinto()
@@ -45,18 +55,16 @@ class CreaLab(object):
 		hab1=self.fabricarHabitacion(1)
 		hab2=self.fabricarHabitacion(2)
 		pt=self.fabricarPuerta(hab1,hab2)
-		#hab1.norte=pt
-		norte.poner(pt,hab1)
-		#hab2.sur=pt
-		sur.poner(pt,hab2)
+		hab1.ponerEn(norte, pt)
+		hab2.ponerEn(sur, pt)
 
-		este.poner(self.fabricarPared(),hab1)
-		oeste.poner(self.fabricarPared(), hab1)
-		sur.poner(self.fabricarPared(), hab1)
+		hab1.ponerEn(este, self.fabricarPared())
+		hab1.ponerEn(oeste, self.fabricarPared())
+		hab1.ponerEn(sur, self.fabricarPared())
 
-		este.poner(self.fabricarPared(), hab2)
-		oeste.poner(self.fabricarPared(), hab2)
-		norte.poner(self.fabricarPared(), hab2)
+		hab2.ponerEn(este, self.fabricarPared())
+		hab2.ponerEn(oeste, self.fabricarPared())
+		hab2.ponerEn(norte, self.fabricarPared())
 
 		self.lab.agregarHijo(hab1)
 		self.lab.agregarHijo(hab2)
@@ -71,8 +79,8 @@ class CreaLab(object):
 		hab1 = self.fabricarHabitacion(1)
 		hab2 = self.fabricarHabitacion(2)
 		pt = self.fabricarPuerta(hab1, hab2)
-		norte.poner(pt, hab1)
-		sur.poner(pt, hab2)
+		hab1.ponerEn(norte,pt)
+		hab2.ponerEn(sur,pt)
 
 		bomba1=self.fabricarBomba(Broma())
 		bomba2=self.fabricarBomba(H())
@@ -83,13 +91,13 @@ class CreaLab(object):
 		arm1.agregarHijo(bomba1)
 		arm2.agregarHijo(bomba2)
 
-		este.poner(self.fabricarPared(), hab1)
-		oeste.poner(self.fabricarPared(), hab1)
-		sur.poner(self.fabricarPared(), hab1)
+		hab1.ponerEn(este,self.fabricarPared())
+		hab1.ponerEn(oeste,self.fabricarPared())
+		hab1.ponerEn(sur,self.fabricarPared())
 
-		este.poner(self.fabricarPared(), hab2)
-		oeste.poner(self.fabricarPared(), hab2)
-		norte.poner(self.fabricarPared(), hab2)
+		hab2.ponerEn(este,self.fabricarPared())
+		hab2.ponerEn(oeste,self.fabricarPared())
+		hab2.ponerEn(norte,self.fabricarPared())
 
 		hab1.agregarHijo(arm1)
 		hab2.agregarHijo(arm2)
@@ -98,7 +106,7 @@ class CreaLab(object):
 		self.lab.agregarHijo(hab2)
 		return self.lab
 
-class CreaLabBomba(CreaLab):
+class AFLaberintoBomba(AbstractFactoryLaberinto):
 	def crearLaberinto2Hab(self):
 		norte = Norte()
 		sur = Sur()
@@ -109,37 +117,35 @@ class CreaLabBomba(CreaLab):
 		hab2=self.fabricarHabitacion(2)
 		pt=self.fabricarPuerta(hab1,hab2)
 
-		norte.poner(pt, hab1)
-		sur.poner(pt, hab2)
+		hab1.ponerEn(norte,pt)
+		hab2.ponerEn(sur,pt)
 
 		bomba1=self.fabricarBomba(Broma())
 		bomba1.componente=self.fabricarPared()
 		bomba2=self.fabricarBomba(Mina())
 		bomba2.componente=self.fabricarPared()
 
-		hab1.norte=pt
-		hab1.este=bomba1
-		hab2.sur=pt
-		hab2.este=bomba2
+		hab1.ponerEn(este, bomba1)
+		hab2.ponerEn(este, bomba1)
 
-		oeste.poner(self.fabricarPared(), hab1)
-		sur.poner(self.fabricarPared(), hab1)
+		hab1.ponerEn(oeste, self.fabricarPared())
+		hab1.ponerEn(sur, self.fabricarPared())
 
-		oeste.poner(self.fabricarPared(), hab2)
-		norte.poner(self.fabricarPared(), hab2)
+		hab2.ponerEn(oeste, self.fabricarPared())
+		hab2.ponerEn(norte, self.fabricarPared())
 
 		self.lab.agregarHijo(hab1)
 		self.lab.agregarHijo(hab2)
 		return self.lab
 
 # Creator crea un laberinto normal
-fm=CreaLab()
-juego=fm.fabricarJuego()
-juego.laberinto=fm.crearLaberintoArmarios()
+af=AbstractFactoryLaberinto()
+juego=af.fabricarJuego()
+juego.laberinto=af.crearLaberintoArmarios()
 
 hab=juego.obtenerHabitacion(1)
 hab.entrar()
-hab.norte.entrar()
+hab.forma.norte.entrar()
 
 juego.laberinto.enumerar()
 

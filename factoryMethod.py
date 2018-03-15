@@ -139,15 +139,15 @@ class AFLaberintoBomba(AbstractFactoryLaberinto):
 		return self.lab
 
 # Creator crea un laberinto normal
-af=AbstractFactoryLaberinto()
-juego=af.fabricarJuego()
-juego.laberinto=af.crearLaberintoArmarios()
-
-hab=juego.obtenerHabitacion(1)
-hab.entrar()
-hab.forma.norte.entrar()
-
-juego.laberinto.enumerar()
+# af=AbstractFactoryLaberinto()
+# juego=af.fabricarJuego()
+# juego.laberinto=af.crearLaberintoArmarios()
+#
+# hab=juego.obtenerHabitacion(1)
+# hab.entrar()
+# hab.forma.norte.entrar()
+#
+# juego.laberinto.enumerar()
 
 #CreatorBomba crea un laberinto con 2 bombas
 # fm=CreaLabBomba()

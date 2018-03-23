@@ -23,6 +23,8 @@ class Director:
             con=self.builder.construirHabitacion()
         if (unDic["tipo"]=="armario"):
             con=self.builder.construirArmarioEn(padre)
+        if (unDic["tipo"]=="baul"):
+            con=self.builder.construirBaulEn(padre)
         if (unDic["tipo"]=="bomba"):
             if (unDic["argumento"]=="broma"):
                 self.builder.construirBombaBromaEn(padre)
@@ -86,6 +88,14 @@ class LaberintoCuadradoBuilder:
         self.construirPuertaEspecial(armario,contenedor)
         contenedor.agregarHijo(armario)
         return armario
+    def construirBaulEn(self,contenedor):
+        baul=Baul()
+        baul.forma=self.construirForma()
+        for each in baul.forma.orientaciones:
+            baul.ponerEn(each,self.construirPared())
+        self.construirPuertaEspecial(baul,contenedor)
+        contenedor.agregarHijo(baul)
+        return baul
     def construirPuertaEspecial(self,cont1,cont2):
         puerta=Puerta(cont1,cont2)
         cont1.ponerEn(Este(),puerta)
@@ -122,4 +132,4 @@ class LaberintoCuadradoBuilder:
 
 
 director=Director()
-director.procesar('/soft/dev/laberintos/laberinto5.json')
+director.procesar('/soft/dev/laberintos/laberintos/laberinto-ejercicio.json')

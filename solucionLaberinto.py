@@ -45,6 +45,8 @@ class ElementoMapa:
 		return False
 	def esArmario(self):
 		return False
+	def esBaul(self):
+		return False
 	def enumerar(self):
 		pass
 	def __repr__(self):
@@ -113,6 +115,14 @@ class Armario(Contenedor):
 	def __repr__(self):
 		return "Armario"
 
+class Baul(Contenedor):
+	def esBaul(self):
+		return True
+	def entrar(self):
+		print "estas en un baul"
+	def __repr__(self):
+		return "Baul"
+
 class Pared(Hoja):
 	def entrar(self):
 		print "Te has chocado con una pared"
@@ -159,18 +169,30 @@ class Estrategia:
 			bomba.componente.entrar()
 	def imprimir(self):
 		print "sobreescribir mensaje"
+	def esBroma(self):
+		return False
+	def esMina(self):
+		return False
+	def esH(self):
+		return False
 
 class Broma(Estrategia):
 	def imprimir(self):
 		print "bomba broma"
+	def esBroma(self):
+		return True
 
 class H(Estrategia):
 	def imprimir(self):
 		print "bomba H"
+	def esH(self):
+		return True
 
 class Mina(Estrategia):
 	def imprimir(self):
 		print "bomba mina"
+	def esMina(self):
+		return True
 
 class Orientacion:
 	def poner(self,elemento,forma):

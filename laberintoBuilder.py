@@ -132,4 +132,4 @@ class LaberintoCuadradoBuilder:
 
 
 director=Director()
-director.procesar('/soft/dev/laberintos/laberintos/laberinto-ejercicio.json')
+director.procesar('./laberinto-ejercicio.json')

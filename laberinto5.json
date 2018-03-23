@@ -1,0 +1,15 @@
+{"forma":"cuadrado",
+"puertas":[[1,"Norte",2,"Sur"]],
+"laberinto":[
+	{"em":"contenedor","tipo":"habitacion","hijos":[
+		{"em":"contenedor","tipo":"armario","hijos":[]},
+		{"em":"hoja","tipo":"bomba","argumento":"H"},
+		{"em":"hoja","tipo":"bomba","argumento":"mina"},
+		{"em":"hoja","tipo":"bomba","argumento":"broma"}
+	]},
+	{"em":"contenedor","tipo":"habitacion","hijos":[
+		{"em":"contenedor","tipo":"armario","hijos":[]}
+		]}
+	],
+"bichos":[{"modo":"agresivo","habitacion":1}]
+}

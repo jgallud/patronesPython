@@ -12,6 +12,8 @@ class Director:
     def iniBuilder(self):
         if (self.dic["forma"]=="cuadrado"):
             self.builder=LaberintoCuadradoBuilder()
+        if (self.dic["forma"]=="octogono"):
+            self.builder=LaberintoOctogonoBuilder()
     def crearLaberinto(self):
         self.builder.construirLaberinto()
         for each in self.dic["laberinto"]:
@@ -52,7 +54,7 @@ class Director:
         self.crearBichos()
 
 
-class LaberintoCuadradoBuilder:
+class LaberintoBuilder:
     def __init__(self):
         self.juego=None
         self.laberinto=None
@@ -68,16 +70,7 @@ class LaberintoCuadradoBuilder:
         self.laberinto.agregarHijo(hab)
         return hab
     def construirForma(self):
-        cuadrado=Cuadrado()
-        cuadrado.orientaciones.append(Norte())
-        cuadrado.orientaciones.append(Este())
-        cuadrado.orientaciones.append(Sur())
-        cuadrado.orientaciones.append(Oeste())
-        self.orientaciones["Norte"]=Norte()
-        self.orientaciones["Este"] = Este()
-        self.orientaciones["Sur"] = Sur()
-        self.orientaciones["Oeste"] = Oeste()
-        return cuadrado
+        pass
     def construirPared(self):
         return Pared()
     def construirArmarioEn(self,contenedor):
@@ -130,6 +123,44 @@ class LaberintoCuadradoBuilder:
         bicho.posicion=hab
         self.juego.agregarBicho(bicho)
 
+class LaberintoCuadradoBuilder(LaberintoBuilder):
+    def __init__(self):
+        LaberintoBuilder.__init__(self)
+    def construirForma(self):
+        cuadrado=Cuadrado()
+        cuadrado.orientaciones.append(Norte())
+        cuadrado.orientaciones.append(Este())
+        cuadrado.orientaciones.append(Sur())
+        cuadrado.orientaciones.append(Oeste())
+        self.orientaciones["Norte"]=Norte()
+        self.orientaciones["Este"] = Este()
+        self.orientaciones["Sur"] = Sur()
+        self.orientaciones["Oeste"] = Oeste()
+        return cuadrado
+
+class LaberintoOctogonoBuilder(LaberintoBuilder):
+    def __init__(self):
+        LaberintoBuilder.__init__(self)
+    def construirForma(self):
+        octogono=Octogono()
+        octogono.orientaciones.append(Norte())
+        octogono.orientaciones.append(Este())
+        octogono.orientaciones.append(Sur())
+        octogono.orientaciones.append(Oeste())
+        octogono.orientaciones.append(NorEste())
+        octogono.orientaciones.append(NorOeste())
+        octogono.orientaciones.append(SurEste())
+        octogono.orientaciones.append(SurOeste())
+        self.orientaciones["Norte"]=Norte()
+        self.orientaciones["Este"] = Este()
+        self.orientaciones["Sur"] = Sur()
+        self.orientaciones["Oeste"] = Oeste()
+        self.orientaciones["NorEste"]=NorEste()
+        self.orientaciones["SurEste"]=SurEste()
+        self.orientaciones["NorOeste"]=NorOeste()
+        self.orientaciones["SurOeste"]=SurOeste()
+        return octogono
 
 director=Director()
-director.procesar('./laberinto-ejercicio.json')
+ruta='/soft/dev/laberintos/laberintos/'
+director.procesar(ruta+'laberinto-ejercicioOctogono.json')

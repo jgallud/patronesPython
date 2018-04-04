@@ -81,6 +81,18 @@ class Cuadrado(Forma):
 		self.oeste=None
 		Forma.__init__(self)
 
+class Octogono(Forma):
+	def __init__(self):
+		self.norte=None
+		self.este=None
+		self.sur=None
+		self.oeste=None
+		self.noreste = None
+		self.sureste = None
+		self.noroeste = None
+		self.suroeste = None
+		Forma.__init__(self)
+
 class Laberinto(Contenedor):
 	def obtenerHabitacion(self,id):
 		for item in self.hijos:
@@ -210,6 +222,18 @@ class Este(Orientacion):
 class Oeste(Orientacion):
 	def poner(self,elemento,forma):
 		forma.oeste=elemento
+class NorOeste(Orientacion):
+	def poner(self,elemento,forma):
+		forma.noroeste=elemento
+class SurOeste(Orientacion):
+	def poner(self,elemento,forma):
+		forma.suroeste=elemento
+class NorEste(Orientacion):
+	def poner(self,elemento,forma):
+		forma.noreste=elemento
+class SurEste(Orientacion):
+	def poner(self,elemento,forma):
+		forma.sureste=elemento
 
 class Bicho:
 	def __init__(self):
@@ -224,16 +248,24 @@ class Modo:
 		self.caminar(unBicho)
 	def dormir(self):
 		time.sleep(2)
+	def esPerezoso(self):
+		return False
+	def esAgresivo(self):
+		return False
 	def caminar(self,unBicho):
 		pass
 
 class Agresivo(Modo):
 	def dormir(self):
 		time.sleep(1)
+	def esAgresivo(self):
+		return True
 
 class Perezoso(Modo):
 	def dormir(self):
 		time.sleep(3)
+	def esPerezoso(self):
+		return True
 
 # juego=JuegoLaberinto()
 

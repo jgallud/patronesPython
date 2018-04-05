@@ -1,5 +1,6 @@
 import os
 import wx
+from laberintoBuilder import * 
 
 class MainWindow(wx.Frame):
     def __init__(self, parent, title):
@@ -20,6 +21,8 @@ class MainWindow(wx.Frame):
 	        #self.control.SetValue(f.read())
 	        self.archivo.SetValue(self.filename)
 	        #f.close()
+	        director=Director()	        
+	        director.procesar(os.path.join(self.dirname, self.filename))
 	    dlg.Destroy()
 
 app = wx.App(False)

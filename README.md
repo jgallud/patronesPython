@@ -1,7 +1,8 @@
 # Patrones en Python
 Patrones de diseño en Python
 
-Patrón | Referencia
+Patrón | Referencia en el juego del laberinto
+------ | ------------------------------------
 Factory Method | Tanto en factoryMethod.py como en laberintoBuilder.py hay factory methods
 Decorator | Se puede ver la estructura del Decorator en los elementos ElementoMapa, Contenedor y Decorator (tiene componente)
 Strategy | Este patrón se utiliza en diferentes lugares (las orientaciones, en las bombas)

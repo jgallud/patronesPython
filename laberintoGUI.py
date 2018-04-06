@@ -9,6 +9,7 @@ class MainWindow(wx.Frame):
 	    self.quote = wx.StaticText(panel, label="Archivo: ", pos=(20, 30))  
 	    self.archivo = wx.TextCtrl(panel, value="Localiza el archivo", pos=(20,50),size=(150,20),style=wx.TE_READONLY)
 	    self.button =wx.Button(panel, label="Seleccionar y procesar", pos=(20, 80))
+	    wx.StaticText(panel, label="Numero de bichos: ", pos=(20, 130))
 	    self.bichos = wx.TextCtrl(panel, value="", pos=(20,150),size=(150,20),style=wx.TE_READONLY)
 	    self.Bind(wx.EVT_BUTTON, self.OnClick,self.button)      
 	    self.Show()

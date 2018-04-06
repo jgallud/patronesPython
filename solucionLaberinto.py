@@ -34,7 +34,7 @@ class JuegoLaberinto:
 
 class ElementoMapa:
 	def entrar(self):
-		print "metodo a sobreescribir"
+		print("metodo a sobreescribir")
 	def esPuerta(self):
 		return False
 	def esPared(self):

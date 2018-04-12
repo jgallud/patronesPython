@@ -135,7 +135,7 @@ class TestLaberintoBuilder(unittest.TestCase):
     """Test laberinto con bombas"""
     def setUp(self):
         director = Director()
-        director.procesar('/soft/dev/laberintos/laberinto3.json')
+        director.procesar('laberintos/laberinto3.json')
         self.juego=director.builder.juego
 
     def testJuego(self):
@@ -183,7 +183,7 @@ class TestLaberintoEjercicio(unittest.TestCase):
     """Test laberinto con bombas"""
     def setUp(self):
         director = Director()
-        director.procesar('/soft/dev/laberintos/laberintos/laberinto-ejercicio.json')
+        director.procesar('laberintos/laberinto-ejercicio.json')
         self.juego=director.builder.juego
 
     def testJuego(self):
@@ -262,7 +262,7 @@ class TestLaberintoOctogono(unittest.TestCase):
     """Test laberinto con bombas"""
     def setUp(self):
         director = Director()
-        director.procesar('/soft/dev/laberintos/laberintos/laberinto-ejercicioOctogono.json')
+        director.procesar('laberintos/laberinto-ejercicioOctogono.json')
         self.juego=director.builder.juego
 
     def testJuego(self):

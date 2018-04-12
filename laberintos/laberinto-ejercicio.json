@@ -1,0 +1,27 @@
+{"forma":"cuadrado",
+"puertas":[[2,"Norte",1,"Sur"],[2,"Este",3,"Oeste"],[3,"Sur",4,"Norte"]],
+"laberinto":[
+	{"em":"contenedor","tipo":"habitacion","hijos":[
+		{"em":"contenedor","tipo":"armario","hijos":[
+			{"em":"hoja","tipo":"bomba","argumento":"mina"}
+		]},
+		{"em":"contenedor","tipo":"baul","hijos":[]}
+	]},
+	{"em":"contenedor","tipo":"habitacion","hijos":[
+		{"em":"contenedor","tipo":"armario","hijos":[]},		
+		{"em":"contenedor","tipo":"baul","hijos":[]}
+	]},
+	{"em":"contenedor","tipo":"habitacion","hijos":[
+		{"em":"contenedor","tipo":"armario","hijos":[]},
+		{"em":"hoja","tipo":"bomba","argumento":"H"},
+		{"em":"contenedor","tipo":"baul","hijos":[]}
+	]},
+	{"em":"contenedor","tipo":"habitacion","hijos":[
+		{"em":"contenedor","tipo":"armario","hijos":[
+			{"em":"hoja","tipo":"bomba","argumento":"broma"}
+		]},
+		{"em":"contenedor","tipo":"baul","hijos":[]}
+	]}
+	],
+"bichos":[{"modo":"agresivo","habitacion":1},{"modo":"perezoso","habitacion":2}]
+}

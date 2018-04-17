@@ -4,7 +4,7 @@ import time
 class JuegoLaberinto:
  def __init__(self):
    	self.laberinto=None
-	self.bichos=list()
+   	self.bichos=list()
  def crearLaberinto2Hab(self,unAF):
 	 norte = Norte()
 	 sur = Sur()

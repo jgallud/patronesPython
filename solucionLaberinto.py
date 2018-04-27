@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import time
-import wx
+#import wx
 
 class JuegoLaberinto:
 	def __init__(self):
@@ -111,8 +111,8 @@ class Cuadrado(Forma):
 		numHijo=unCont.hijos.index(otroCont)
 		x=unCont.punto.x+(division * numHijo)
 		y=unCont.punto.y + (unCont.extent.y - alto)
-		otroCont.punto=wx.Point(x,y)
-		otroCont.extent=wx.Point(ancho,alto)
+		otroCont.punto=Point(x,y)
+		otroCont.extent=Point(ancho,alto)
 
 	def dibujarContenedor(self,unaVista,unCont):
 		unaVista.dibujarContenedorRectangular(unCont)
@@ -276,7 +276,7 @@ class Norte(Orientacion):
 	def calcularPosicionDesde(self,unCont):
 		x=unCont.punto.x
 		y=unCont.punto.y-1
-		punto=wx.Point(x,y)
+		punto=Point(x,y)
 		unCont.forma.norte.calcularPosicionDesdePunto(unCont,punto)
 class Sur(Orientacion):
 	def poner(self,elemento,forma):
@@ -284,7 +284,7 @@ class Sur(Orientacion):
 	def calcularPosicionDesde(self,unCont):
 		x=unCont.punto.x
 		y=unCont.punto.y+1
-		punto=wx.Point(x,y)
+		punto=Point(x,y)
 		unCont.forma.sur.calcularPosicionDesdePunto(unCont,punto)
 class Este(Orientacion):
 	def poner(self,elemento,forma):
@@ -292,7 +292,7 @@ class Este(Orientacion):
 	def calcularPosicionDesde(self,unCont):
 		x=unCont.punto.x+1
 		y=unCont.punto.y
-		punto=wx.Point(x,y)
+		punto=Point(x,y)
 		unCont.forma.este.calcularPosicionDesdePunto(unCont,punto)
 class Oeste(Orientacion):
 	def poner(self,elemento,forma):
@@ -300,7 +300,7 @@ class Oeste(Orientacion):
 	def calcularPosicionDesde(self,unCont):
 		x=unCont.punto.x-1
 		y=unCont.punto.y
-		punto=wx.Point(x,y)
+		punto=Point(x,y)
 		unCont.forma.oeste.calcularPosicionDesdePunto(unCont,punto)
 class NorOeste(Orientacion):
 	def poner(self,elemento,forma):
@@ -346,6 +346,11 @@ class Perezoso(Modo):
 		time.sleep(3)
 	def esPerezoso(self):
 		return True
+
+class Point:
+	def __init__(self,x,y):
+		self.x=x
+		self.y=y
 
 # juego=JuegoLaberinto()
 

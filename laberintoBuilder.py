@@ -161,6 +161,6 @@ class LaberintoOctogonoBuilder(LaberintoBuilder):
         self.orientaciones["SurOeste"]=SurOeste()
         return octogono
 
-director=Director()
-ruta='/soft/dev/laberintos/laberintos/'
-director.procesar(ruta+'laberinto-ejercicioOctogono.json')
+#director=Director()
+#ruta='/soft/dev/laberintos/laberintos/'
+#director.procesar(ruta+'laberinto-ejercicioOctogono.json')

@@ -107,7 +107,7 @@ class Cuadrado(Forma):
 		ancho=(unCont.extent.x) * otroCont.proporcion
 		alto = (unCont.extent.y) * otroCont.proporcion
 		#print("ancho,alto",ancho,alto)
-		division=ancho/len(unCont.hijos)
+		division=unCont.extent.x/len(unCont.hijos)
 		numHijo=unCont.hijos.index(otroCont)
 		x=unCont.punto.x+(division * numHijo)
 		y=unCont.punto.y + (unCont.extent.y - alto)
